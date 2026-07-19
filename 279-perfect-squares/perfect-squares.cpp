@@ -1,36 +1,24 @@
 class Solution {
 public:
+    int numSquares(int n) {
 
-    vector<int> dp;
+        vector<int> dp(n + 1, INT_MAX);
 
-    int solve(int n)
-    {
-        if(n == 0)
-            return 0;
-
-        if(dp[n] != -1)
-            return dp[n];
+        // Base case
+        dp[0] = 0;
 
 
-        int ans = INT_MAX;
+        for (int i = 1; i <= n; i++) {
 
+            for (int j = 1; j * j <= i; j++) {
 
-        for(int i = 1; i*i <= n; i++)
-        {
-            int square = i*i;
+                int square = j * j;
 
-            ans = min(ans, solve(n-square) + 1);
+                dp[i] = min(dp[i], dp[i - square] + 1);
+            }
         }
 
 
-        return dp[n] = ans;
-    }
-
-
-    int numSquares(int n)
-    {
-        dp.resize(n+1, -1);
-
-        return solve(n);
+        return dp[n];
     }
 };
