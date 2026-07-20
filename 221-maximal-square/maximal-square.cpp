@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+
+        int m = matrix.size();
+        int n = matrix[0].size();
+
+        vector<int> prev(n, 0);
+
+        int maxSide = 0;
+
+        for(int i = 0; i < m; i++) {
+
+            vector<int> curr(n, 0);
+
+            for(int j = 0; j < n; j++) {
+
+                if(matrix[i][j] == '1') {
+
+                    if(i == 0 || j == 0) {
+
+                        curr[j] = 1;
+
+                    }
+                    else {
+
+                        curr[j] = 1 + min(prev[j],
+                                     min(curr[j-1], prev[j-1]));
+                    }
+
+                    maxSide = max(maxSide, curr[j]);
+                }
+            }
+
+            prev = curr;
+        }
+
+        return maxSide * maxSide;
+    }
+};
