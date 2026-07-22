@@ -10,17 +10,12 @@ public:
         dp[0] = 0;
         dp[1] = 0;
 
+     
+        for (int i = 2; i <= n; i++) {
 
-        for(int i = 2; i <= n; i++) {
-
-            int oneStep = dp[i-1] + cost[i-1];
-
-            int twoStep = dp[i-2] + cost[i-2];
-
-
-            dp[i] = min(oneStep, twoStep);
+            dp[i] = min(dp[i - 1] + cost[i - 1],
+                        dp[i - 2] + cost[i - 2]);
         }
-
 
         return dp[n];
     }
