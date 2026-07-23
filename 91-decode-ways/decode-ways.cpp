@@ -4,9 +4,8 @@ public:
 
         int n = s.size();
 
-        int prev2 = 1;  // dp[i-2]
-        int prev1 = 1;  // dp[i-1]
-
+        int a = 1;  // dp[i-2]
+        int b = 1;  // dp[i-1]
 
         if (s[0] == '0')
             return 0;
@@ -14,33 +13,29 @@ public:
 
         for (int i = 1; i < n; i++) {
 
-            int curr = 0;
+            int c = 0;  // dp[i]
 
 
             // Single digit
             if (s[i] != '0') {
-
-                curr += prev1;
-
+                c += b;
             }
 
 
             // Two digits
-            int num = (s[i-1]-'0')*10 + (s[i]-'0');
-
+            int num = (s[i-1]-'0') * 10 + (s[i]-'0');
 
             if (num >= 10 && num <= 26) {
-
-                curr += prev2;
-
+                c += a;
             }
 
 
-            prev2 = prev1;
-            prev1 = curr;
+            // Move forward
+            a = b;
+            b = c;
         }
 
 
-        return prev1;
+        return b;
     }
 };
